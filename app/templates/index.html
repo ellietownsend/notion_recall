@@ -6,7 +6,14 @@
 </head>
 <body>
     <h1>Hello from the HTML file!</h1>
-    <!-- Display variables passed from Python -->
-    <p>{{ message }}</p>
+    <label for="notes">Upload a file of your notes</label>
+    <form method = "POST"
+          action = "{{ url_for('upload_notes') }}">
+           <input type = "file" 
+                  id = "notes" 
+                  name = "notes" 
+                  accept = "text/html, .html, .htm" />
+            <button type = "submit">Send notes off!</button>
+      </form>
 </body>
 </html>
