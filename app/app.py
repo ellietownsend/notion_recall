@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, url_for
+import parser
 
 app = Flask(__name__)
 
@@ -8,14 +9,16 @@ def hello_world():
 
 @app.route("/upload_notes", methods=['GET', 'POST'])
 def upload_notes():
+
     if request.method == "POST":
-        notes = request.form.get("notes")
-        return f"""
-            <h1>Notes recieved: {notes} </h1>
-        """
+        uploaded_notes = request.files.get('notes')
+        assert uploaded_notes is not None
+        if upload_notes and uploaded_notes.filename != '':
+            file_content = uploaded_notes.read().decode('utf-8')
+            return f"File contents loaded successfully:\n\n{file_content}"
 
     return """
-    <form method = "POST" action = "">
+    <form method = "POST" action = "" enctype="multipart/form-data">
         <label>Upload a file of your notes:</label>
             <input type = "file" 
                     id = "notes" 
