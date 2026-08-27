@@ -15,7 +15,7 @@ def upload_notes():
         assert uploaded_notes is not None
         if upload_notes and uploaded_notes.filename != '':
             file_content = uploaded_notes.read().decode('utf-8')
-            return f"File contents loaded successfully:\n\n{file_content}"
+            return f"File passed to beautiful soup successfully:\n\n{parser.parse_html(file_content)}"
 
     return """
     <form method = "POST" action = "" enctype="multipart/form-data">
