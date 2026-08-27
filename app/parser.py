@@ -7,8 +7,18 @@ def parse_html(html):
     section = {}
     headers = soup.find_all("h2")
     for header in headers:
-        next_siblings = header.find_next_siblings()
-        section[header.get_text(" ", strip=True)] = next_siblings
+        title = header.get_text(" ", strip=True)
+        content = []
+
+        for sibiling in header.find_next_siblings():
+            if sibiling.name == "h2":
+                break
+
+            text = sibiling.get_text("", strip = True)
+            if text:
+                content.append(text)
+
+        section[title] = content
         
 
     return section
