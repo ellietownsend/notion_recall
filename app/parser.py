@@ -4,6 +4,13 @@ import html.parser
 
 def parse_html(html):
     soup = BeautifulSoup(html, "html.parser")
-    headers = soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6"])
+    section = {}
+    headers = soup.find_all("h2")
     for header in headers:
-        print (header.get_text(strip=True))
+        next_siblings = header.find_next_siblings()
+        section[header.get_text(" ", strip=True)] = next_siblings
+        
+
+    return section
+
+    
